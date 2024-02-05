@@ -1,36 +1,18 @@
 package com.example.FlightSearch.service.user;
 
+import com.example.FlightSearch.core.utilities.results.dataResult.DataResult;
 import com.example.FlightSearch.model.user.CompanyEmployee;
-import com.example.FlightSearch.repository.user.CompanyEmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class CompanyEmployeeService {
+public interface CompanyEmployeeService {
 
-    private final CompanyEmployeeRepository companyEmployeeRepository;
+    DataResult<List<CompanyEmployee>> findAllCompanyEmployees();
 
-    @Autowired
-    public CompanyEmployeeService(CompanyEmployeeRepository companyEmployeeRepository) {
-        this.companyEmployeeRepository = companyEmployeeRepository;
-    }
+    DataResult<Optional<CompanyEmployee>> findCompanyEmployeeById(Long id);
 
-    public List<CompanyEmployee> findAllCompanyEmployees() {
-        return companyEmployeeRepository.findAll();
-    }
+    DataResult<CompanyEmployee> saveCompanyEmployee(CompanyEmployee companyEmployee);
 
-    public Optional<CompanyEmployee> findCompanyEmployeeById(Long id) {
-        return companyEmployeeRepository.findById(id);
-    }
-
-    public CompanyEmployee saveCompanyEmployee(CompanyEmployee companyEmployee) {
-        return companyEmployeeRepository.save(companyEmployee);
-    }
-
-    public void deleteCompanyEmployee(Long id) {
-        companyEmployeeRepository.deleteById(id);
-    }
+    DataResult deleteCompanyEmployee(Long id);
 }

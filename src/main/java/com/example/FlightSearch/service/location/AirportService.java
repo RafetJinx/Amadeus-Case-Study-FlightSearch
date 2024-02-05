@@ -1,36 +1,18 @@
 package com.example.FlightSearch.service.location;
 
+import com.example.FlightSearch.core.utilities.results.dataResult.DataResult;
 import com.example.FlightSearch.model.location.Airport;
-import com.example.FlightSearch.repository.location.AirportRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class AirportService {
+public interface AirportService {
 
-    private final AirportRepository airportRepository;
+    DataResult<List<Airport>> findAllAirports();
 
-    @Autowired
-    public AirportService(AirportRepository airportRepository) {
-        this.airportRepository = airportRepository;
-    }
+    DataResult<Optional<Airport>> findAirportById(Long id);
 
-    public List<Airport> findAllAirports() {
-        return airportRepository.findAll();
-    }
+    DataResult<Airport> saveAirport(Airport airport);
 
-    public Optional<Airport> findAirportById(Long id) {
-        return airportRepository.findById(id);
-    }
-
-    public Airport saveAirport(Airport airport) {
-        return airportRepository.save(airport);
-    }
-
-    public void deleteAirport(Long id) {
-        airportRepository.deleteById(id);
-    }
+    DataResult deleteAirport(Long id);
 }

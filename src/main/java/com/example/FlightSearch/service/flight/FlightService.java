@@ -1,36 +1,18 @@
 package com.example.FlightSearch.service.flight;
 
+import com.example.FlightSearch.core.utilities.results.dataResult.DataResult;
 import com.example.FlightSearch.model.flight.Flight;
-import com.example.FlightSearch.repository.flight.FlightRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class FlightService {
+public interface FlightService {
 
-    private final FlightRepository flightRepository;
+    DataResult<List<Flight>> findAllFlights();
 
-    @Autowired
-    public FlightService(FlightRepository flightRepository) {
-        this.flightRepository = flightRepository;
-    }
+    DataResult<Optional<Flight>> findFlightById(Long id);
 
-    public List<Flight> findAllFlights() {
-        return flightRepository.findAll();
-    }
+    DataResult<Flight> saveFlight(Flight flight);
 
-    public Optional<Flight> findFlightById(Long id) {
-        return flightRepository.findById(id);
-    }
-
-    public Flight saveFlight(Flight flight) {
-        return flightRepository.save(flight);
-    }
-
-    public void deleteFlight(Long id) {
-        flightRepository.deleteById(id);
-    }
+    DataResult deleteFlight(Long id);
 }

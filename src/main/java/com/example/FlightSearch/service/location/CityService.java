@@ -1,36 +1,18 @@
 package com.example.FlightSearch.service.location;
 
+import com.example.FlightSearch.core.utilities.results.dataResult.DataResult;
 import com.example.FlightSearch.model.location.City;
-import com.example.FlightSearch.repository.location.CityRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class CityService {
+public interface CityService {
 
-    private final CityRepository cityRepository;
+    DataResult<List<City>> findAllCities();
 
-    @Autowired
-    public CityService(CityRepository cityRepository) {
-        this.cityRepository = cityRepository;
-    }
+    DataResult<Optional<City>> findCityById(Long id);
 
-    public List<City> findAllCities() {
-        return cityRepository.findAll();
-    }
+    DataResult<City> saveCity(City city);
 
-    public Optional<City> findCityById(Long id) {
-        return cityRepository.findById(id);
-    }
-
-    public City saveCity(City city) {
-        return cityRepository.save(city);
-    }
-
-    public void deleteCity(Long id) {
-        cityRepository.deleteById(id);
-    }
+    DataResult deleteCity(Long id);
 }

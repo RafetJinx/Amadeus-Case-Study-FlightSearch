@@ -1,36 +1,18 @@
 package com.example.FlightSearch.service.company;
 
+import com.example.FlightSearch.core.utilities.results.dataResult.DataResult;
 import com.example.FlightSearch.model.company.Company;
-import com.example.FlightSearch.repository.company.CompanyRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class CompanyService {
+public interface CompanyService {
 
-    private final CompanyRepository companyRepository;
+    DataResult<List<Company>> findAllCompanies();
 
-    @Autowired
-    public CompanyService(CompanyRepository companyRepository) {
-        this.companyRepository = companyRepository;
-    }
+    DataResult<Optional<Company>> findCompanyById(Long id);
 
-    public List<Company> findAllCompanies() {
-        return companyRepository.findAll();
-    }
+    DataResult<Company> saveCompany(Company company);
 
-    public Optional<Company> findCompanyById(Long id) {
-        return companyRepository.findById(id);
-    }
-
-    public Company saveCompany(Company company) {
-        return companyRepository.save(company);
-    }
-
-    public void deleteCompany(Long id) {
-        companyRepository.deleteById(id);
-    }
+    DataResult deleteCompany(Long id);
 }

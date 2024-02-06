@@ -9,6 +9,7 @@ import com.example.FlightSearch.service.flight.FlightDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,6 +73,34 @@ public class FlightDetailsManager implements FlightDetailsService {
             }
         } catch (Exception e) {
             return new ErrorDataResult<>("An error occurred while deleting the flight details.");
+        }
+    }
+
+    @Override
+    public DataResult<List<FlightDetails>> findFlightsById(Long departureAirportId, Long arrivalAirportId, LocalDateTime departureTime, LocalDateTime returnTime) {
+        try {
+            DataResult<List<FlightDetails>> flights = flightDetailsRepository.findFlightsById(departureAirportId, arrivalAirportId, departureTime, returnTime);
+            if (!flights.getData().isEmpty()) {
+                return new SuccessDataResult<>("Flights retrieved successfully.", flights);
+            } else {
+                return new SuccessDataResult<>("No flights found with the given criteria.", flights);
+            }
+        } catch (Exception e) {
+            return new ErrorDataResult<>("An error occurred while retrieving flights by ID.");
+        }
+    }
+
+    @Override
+    public DataResult<List<FlightDetails>> findFlightsByName(String departureAirportName, String arrivalAirportName, LocalDateTime departureTime, LocalDateTime returnTime) {
+        try {
+            DataResult<List<FlightDetails>> flights = flightDetailsRepository.findFlightsByName(departureAirportName, arrivalAirportName, departureTime, returnTime);
+            if (!flights.getData().isEmpty()) {
+                return new SuccessDataResult<>("Flights retrieved successfully.", flights);
+            } else {
+                return new SuccessDataResult<>("No flights found with the given criteria.", flights);
+            }
+        } catch (Exception e) {
+            return new ErrorDataResult<>("An error occurred while retrieving flights by name.");
         }
     }
 }

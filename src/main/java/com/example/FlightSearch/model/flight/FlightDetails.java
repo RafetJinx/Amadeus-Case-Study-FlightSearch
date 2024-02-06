@@ -22,8 +22,8 @@ public class FlightDetails {
     @JoinColumn(name = "flightId", nullable = false)
     private Flight flight;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "flightTypeId", referencedColumnName = "id", nullable = false)
     private FlightType flightType;
 
     @Column(length = 50, nullable = false)

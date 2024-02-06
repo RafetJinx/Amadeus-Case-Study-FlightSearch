@@ -79,8 +79,8 @@ public class FlightDetailsManager implements FlightDetailsService {
     @Override
     public DataResult<List<FlightDetails>> findFlightsById(Long departureAirportId, Long arrivalAirportId, LocalDateTime departureTime, LocalDateTime returnTime) {
         try {
-            DataResult<List<FlightDetails>> flights = flightDetailsRepository.findFlightsById(departureAirportId, arrivalAirportId, departureTime, returnTime);
-            if (!flights.getData().isEmpty()) {
+            List<FlightDetails> flights = flightDetailsRepository.findFlightsById(departureAirportId, arrivalAirportId, departureTime, returnTime);
+            if (!flights.isEmpty()) {
                 return new SuccessDataResult<>("Flights retrieved successfully.", flights);
             } else {
                 return new SuccessDataResult<>("No flights found with the given criteria.", flights);
@@ -93,8 +93,8 @@ public class FlightDetailsManager implements FlightDetailsService {
     @Override
     public DataResult<List<FlightDetails>> findFlightsByName(String departureAirportName, String arrivalAirportName, LocalDateTime departureTime, LocalDateTime returnTime) {
         try {
-            DataResult<List<FlightDetails>> flights = flightDetailsRepository.findFlightsByName(departureAirportName, arrivalAirportName, departureTime, returnTime);
-            if (!flights.getData().isEmpty()) {
+            List<FlightDetails> flights = flightDetailsRepository.findFlightsByName(departureAirportName, arrivalAirportName, departureTime, returnTime);
+            if (!flights.isEmpty()) {
                 return new SuccessDataResult<>("Flights retrieved successfully.", flights);
             } else {
                 return new SuccessDataResult<>("No flights found with the given criteria.", flights);

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,4 +66,29 @@ public class FlightDetailsController {
                 ? ResponseEntity.ok(result)
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
     }
+
+    @GetMapping("/searchById")
+    public ResponseEntity<DataResult<List<FlightDetails>>> searchFlightsById(
+            @RequestParam(required = false) Long departureAirportId,
+            @RequestParam(required = false) Long arrivalAirportId,
+            @RequestParam LocalDateTime departureTime,
+            @RequestParam(required = false) LocalDateTime returnTime) {
+        DataResult<List<FlightDetails>> result = flightDetailsService.findFlightsById(departureAirportId, arrivalAirportId, departureTime, returnTime);
+        return result.getData() != null
+                ? ResponseEntity.ok(result)
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
+    }
+
+    @GetMapping("/searchByName")
+    public ResponseEntity<DataResult<List<FlightDetails>>> searchFlightsByName(
+            @RequestParam(required = false) String departureAirportName,
+            @RequestParam(required = false) String arrivalAirportName,
+            @RequestParam LocalDateTime departureTime,
+            @RequestParam(required = false) LocalDateTime returnTime) {
+        DataResult<List<FlightDetails>> result = flightDetailsService.findFlightsByName(departureAirportName, arrivalAirportName, departureTime, returnTime);
+        return result.getData() != null
+                ? ResponseEntity.ok(result)
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
+    }
+
 }

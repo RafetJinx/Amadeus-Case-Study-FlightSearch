@@ -14,7 +14,6 @@ import java.util.List;
 
 @Repository
 public interface FlightDetailsRepository extends JpaRepository<FlightDetails, Long> {
-    DataResult<List<FlightDetails>> findByFlightType(FlightType flightType);
 
     @Query("SELECT fd FROM FlightDetails fd " +
             "WHERE " +
@@ -23,10 +22,10 @@ public interface FlightDetailsRepository extends JpaRepository<FlightDetails, Lo
             "fd.departureTime >= :departureTime AND " +
             "(:returnTime IS NULL OR fd.arrivalTime <= :returnTime) " +
             "ORDER BY fd.departureTime ASC")
-    DataResult<List<FlightDetails>> findFlightsById(@Param("departureAirportId") Long departureAirportId,
-                                                    @Param("arrivalAirportId") Long arrivalAirportId,
-                                                    @Param("departureTime") LocalDateTime departureTime,
-                                                    @Param("returnTime") LocalDateTime returnTime);
+    List<FlightDetails> findFlightsById(@Param("departureAirportId") Long departureAirportId,
+                                        @Param("arrivalAirportId") Long arrivalAirportId,
+                                        @Param("departureTime") LocalDateTime departureTime,
+                                        @Param("returnTime") LocalDateTime returnTime);
 
     @Query("SELECT fd FROM FlightDetails fd " +
             "WHERE " +
@@ -35,9 +34,9 @@ public interface FlightDetailsRepository extends JpaRepository<FlightDetails, Lo
             "fd.departureTime >= :departureTime AND " +
             "(:returnTime IS NULL OR fd.arrivalTime <= :returnTime) " +
             "ORDER BY fd.departureTime ASC")
-    DataResult<List<FlightDetails>> findFlightsByName(@Param("departureAirportName") String departureAirportName,
-                                                      @Param("arrivalAirportName") String arrivalAirportName,
-                                                      @Param("departureTime") LocalDateTime departureTime,
-                                                      @Param("returnTime") LocalDateTime returnTime);
+    List<FlightDetails> findFlightsByName(@Param("departureAirportName") String departureAirportName,
+                                          @Param("arrivalAirportName") String arrivalAirportName,
+                                          @Param("departureTime") LocalDateTime departureTime,
+                                          @Param("returnTime") LocalDateTime returnTime);
 
 }

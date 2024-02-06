@@ -8,13 +8,13 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Entity
 @Table(name = "BaseUser")
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@MappedSuperclass
 public class BaseUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

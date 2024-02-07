@@ -24,5 +24,11 @@ public class BaseUser {
     private LocalDateTime createDate;
 
     @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
     private Boolean isActive;
 }
